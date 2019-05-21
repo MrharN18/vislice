@@ -6,6 +6,7 @@ PRAVILNA_CRKA = '+'
 PONOVLJENA_CRKA = 'o'
 NAPACNA_CRKA = '-'
 
+ZACETEK = 'S'
 ZMAGA = 'W'
 PORAZ = 'X'
 
@@ -91,6 +92,53 @@ def nova_igra():
 
 
 
+
+
+class Vislice:
+
+    def __init__(self):
+        # v slovarju igre ima vsaka igra svoj ID
+        # ID je celo stevilo
+        self.igre = {}
+        return
+
+    def prost_id_igre(self):
+        if not self.igre:
+            return 0
+        else:
+            #preverimo katero od prvih n + 1 stevil se ni uporableno za ID n iger
+            for i in range(len(self.igre) + 1):
+                if i not in self.igre.keys():
+                    return i 
+
+    def nova_igra(self):
+        #naredi novo igro in nov ID
+        igra = nova_igra()
+        nov_id = self.prost_id_igre()
+
+        #dodaj v slovar iger
+        self.igre[nov_id] = (igra, ZACETEK)
+
+        return nov_id
+
+    
+    def ugibaj(self, id_igre, crka):
+        #pridobi igro
+        (igra, _) = self.igre[id_igre]
+        #ugibaj
+        nov_poskus = igra.ugibaj(crka)
+        #shrani rezultat poskusa v slovar
+        self.igre[id_igre] = (igra, nov_poskus)
+        return
+
+    
+
+
+
+            
+
+
+    
 
 
 
